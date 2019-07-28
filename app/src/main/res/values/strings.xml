@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">myPassword</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="welcome_text">Welcome to myPassword!</string>
+    <string name="enter_app_pw_string">Enter your App Password</string>
+</resources>
