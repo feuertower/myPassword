@@ -1,4 +1,4 @@
-package com.example.mypassword;
+package com.android.mypassword;
 
 public class PasswordEntry {
 
@@ -13,7 +13,8 @@ public class PasswordEntry {
 
     }
 
-    public PasswordEntry( int id, String displayName, String username, String password, String infoText )
+    public PasswordEntry( int id, String displayName, String username,
+                          String password, String infoText )
     {
         this.id = id;
         this.displayName = displayName;

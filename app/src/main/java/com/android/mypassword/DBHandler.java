@@ -1,4 +1,4 @@
-package com.example.mypassword;
+package com.android.mypassword;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -45,10 +45,10 @@ public class DBHandler extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(KEY_DISPLAY_NAME, entry.getDisplayName());
         values.put(KEY_USERNAME, entry.getUsername());
         values.put(KEY_PASSWORD, entry.getPassword());
         values.put(KEY_INFO, entry.getInfoText());
-        values.put(KEY_DISPLAY_NAME, entry.getDisplayName());
 
         db.insert(TABLE_PASSWORDS, null, values);
         db.close();

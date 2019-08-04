@@ -1,4 +1,4 @@
-package com.example.mypassword;
+package com.android.mypassword;
 
 import android.content.Intent;
 import android.os.Bundle;
