@@ -5,4 +5,5 @@
     <string name="welcome_text">Welcome to myPassword!</string>
     <string name="enter_app_pw_string">Enter your App Password</string>
     <string name="title_activity_password_list">passwordList</string>
+    <string name="title_activity_add_password_entry">addPasswordEntry</string>
 </resources>

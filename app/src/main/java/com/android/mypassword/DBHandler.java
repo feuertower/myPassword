@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,9 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
     // Database Name
     private static final String DATABASE_NAME = "passwords.db";
-    // Contacts table name
-    private static final String TABLE_PASSWORDS = "passwordList";
-    // Shops Table Columns names
+    // table name
+    private static final String TABLE_PASSWORDS = "passwords";
+    // Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_DISPLAY_NAME = "displayName";
     private static final String KEY_USERNAME = "username";
@@ -29,8 +30,10 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PASSWORD_TABLE = "CREATE TABLE " + TABLE_PASSWORDS + "("
-        + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DISPLAY_NAME + "TEXT, " + KEY_USERNAME + " TEXT,"
-        + KEY_PASSWORD + " TEXT, " + KEY_INFO + "TEXT" + ")";
+        + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_DISPLAY_NAME + " TEXT, " + KEY_USERNAME + " TEXT, "
+        + KEY_PASSWORD + " TEXT, " + KEY_INFO + " TEXT" + ")";
+
+        Log.i("dbHandler", CREATE_PASSWORD_TABLE);
         db.execSQL(CREATE_PASSWORD_TABLE);
     }
     @Override
@@ -45,6 +48,7 @@ public class DBHandler extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, entry.getId());
         values.put(KEY_DISPLAY_NAME, entry.getDisplayName());
         values.put(KEY_USERNAME, entry.getUsername());
         values.put(KEY_PASSWORD, entry.getPassword());

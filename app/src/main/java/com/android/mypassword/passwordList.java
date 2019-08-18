@@ -20,6 +20,10 @@ public class passwordList extends AppCompatActivity {
     ListView lvPasswordList = null;
     private DBHandler dbHandler = new DBHandler( this );
 
+    final List<String> listElementsArrayList = new ArrayList<String>();
+    final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>
+            (this, android.R.layout.simple_list_item_1, listElementsArrayList);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,39 +31,45 @@ public class passwordList extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final List<String> listElementsArrayList = new ArrayList<String>();
-        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, listElementsArrayList);
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                // add new password function
-               listAdapter.notifyDataSetChanged();
-
             }
         });
 
-        PasswordEntry entry1 = new PasswordEntry( 1, "dominik", "feuertower",
+        PasswordEntry entry1 = new PasswordEntry( 3, "dominik", "feuertower",
                                             "myPassword", "no Info");
         dbHandler.addPasswordEntry( entry1 );
 
         lvPasswordList = findViewById( R.id.passwordList );
         lvPasswordList.setAdapter(listAdapter);
 
+        updateList();
+
+    }
+
+    void updateList() {
+
+        listAdapter.clear();
+
         // fill table with existing passwords
         List<PasswordEntry> passwordEntryList = dbHandler.getPasswordList();
 
-        for( int i = 0; passwordEntryList.size() > 0; i++ )
+        for( int i = 0; passwordEntryList.size() > i; i++ )
         {
-            Log.d( "reading db .. ", "" + i);
+            Log.i( "passwordList", "reading db.. " + i);
             // show displayName in List
             listElementsArrayList.add( passwordEntryList.get( i ).getDisplayName() );
             listAdapter.notifyDataSetChanged();
         }
 
-        Log.i("1", this.getDatabasePath("passwords.db").toString());
+        Log.i("passwordList", this.getDatabasePath("passwords.db").toString());
+    }
+
+    void addEntry() {
+
     }
 
 }
