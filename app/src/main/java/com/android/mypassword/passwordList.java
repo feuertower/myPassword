@@ -21,8 +21,8 @@ public class passwordList extends AppCompatActivity {
     private DBHandler dbHandler = new DBHandler( this );
 
     final List<String> listElementsArrayList = new ArrayList<String>();
-    final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>
-            (this, android.R.layout.simple_list_item_1, listElementsArrayList);
+    ArrayAdapter<String> listAdapter;
+    addPassword ap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +30,25 @@ public class passwordList extends AppCompatActivity {
         setContentView(R.layout.activity_password_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ap = new addPassword( this );
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // add new password function
+
+                // add new password function
+
+                ap.show();
             }
         });
 
-        PasswordEntry entry1 = new PasswordEntry( 3, "dominik", "feuertower",
-                                            "myPassword", "no Info");
-        dbHandler.addPasswordEntry( entry1 );
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listElementsArrayList);
+
+/*        PasswordEntry entry1 = new PasswordEntry( 3, "dominik", "feuertower",
+                                            "myPassword", "no Info");*/
+        /*dbHandler.addPasswordEntry( entry1 );*/
 
         lvPasswordList = findViewById( R.id.passwordList );
         lvPasswordList.setAdapter(listAdapter);
@@ -68,8 +75,8 @@ public class passwordList extends AppCompatActivity {
         Log.i("passwordList", this.getDatabasePath("passwords.db").toString());
     }
 
-    void addEntry() {
+/*    void addEntry() {
 
-    }
+    }*/
 
 }
