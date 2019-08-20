@@ -10,9 +10,7 @@ import android.widget.Button;
 public class addPassword extends Dialog implements
 android.view.View.OnClickListener{
 
-    public Context context;
-    public Button addBtn, cancelBtn;
-
+    private Context context;
     public addPassword(Context c)
     {
         super(c);
@@ -26,9 +24,9 @@ android.view.View.OnClickListener{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.content_add_password);
 
-        addBtn = (Button)findViewById(R.id.addBtn);
+        Button addBtn = (Button) findViewById(R.id.addBtn);
         addBtn.setOnClickListener( this );
-        cancelBtn = (Button)findViewById(R.id.cancelBtn);
+        Button cancelBtn = (Button) findViewById(R.id.cancelBtn);
         cancelBtn.setOnClickListener( this );
 
     }

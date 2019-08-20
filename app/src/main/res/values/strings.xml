@@ -12,4 +12,11 @@
     //add password dialog
     <string name="title_activity_add_password_entry">addPasswordEntry</string>
     <string name="add_password_text">About to add a new Password Entry</string>
+    <string name="display_name_label">Display Name</string>
+    <string name="username_label">Username</string>
+    <string name="password_label">Password</string>
+    <string name="info_label">Info</string>
+    <string name="add_btn_text">Add</string>
+    <string name="cancel_btn_text">Cancel</string>
+
 </resources>
