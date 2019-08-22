@@ -9,20 +9,22 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class passwordList extends AppCompatActivity {
+public class passwordList extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    ListView lvPasswordList = null;
+    private ListView lvPasswordList = null;
     private DBHandler dbHandler = new DBHandler( this );
 
     final List<String> listElementsArrayList = new ArrayList<String>();
     ArrayAdapter<String> listAdapter;
-    addPassword ap;
+    addPasswordDialog addDialog;
+    List<PasswordEntry> passwordEntryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,31 +32,32 @@ public class passwordList extends AppCompatActivity {
         setContentView(R.layout.activity_password_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ap = new addPassword( this );
+        addDialog = new addPasswordDialog( this, dbHandler );
 
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // add new password function
-
-                ap.show();
-            }
-        });
-
-        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listElementsArrayList);
-
-/*        PasswordEntry entry1 = new PasswordEntry( 3, "dominik", "feuertower",
-                                            "myPassword", "no Info");*/
-        /*dbHandler.addPasswordEntry( entry1 );*/
-
+        listAdapter = new ArrayAdapter<String>(this,
+                                                android.R.layout.simple_list_item_1,
+                                                listElementsArrayList);
         lvPasswordList = findViewById( R.id.passwordList );
+        lvPasswordList.setOnItemClickListener(this);
         lvPasswordList.setAdapter(listAdapter);
 
         updateList();
+    }
 
+    public void clickHandler(View view){
+        switch( view.getId() ){
+            case R.id.fab:
+                addDialog.show();
+                break;
+        }
+    }
+
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        /*PasswordEntry entry = (PasswordEntry) parent.getItemAtPosition( position );*/
+        PasswordEntry entry = passwordEntryList.get( position );
+        dbHandler.removeEntry(entry);
+
+        updateList();
     }
 
     void updateList() {
@@ -62,7 +65,7 @@ public class passwordList extends AppCompatActivity {
         listAdapter.clear();
 
         // fill table with existing passwords
-        List<PasswordEntry> passwordEntryList = dbHandler.getPasswordList();
+        passwordEntryList = dbHandler.getPasswordList();
 
         for( int i = 0; passwordEntryList.size() > i; i++ )
         {
@@ -75,8 +78,8 @@ public class passwordList extends AppCompatActivity {
         Log.i("passwordList", this.getDatabasePath("passwords.db").toString());
     }
 
-/*    void addEntry() {
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
-    }*/
-
+    }
 }

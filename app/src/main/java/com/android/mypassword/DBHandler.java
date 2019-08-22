@@ -48,7 +48,6 @@ public class DBHandler extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, entry.getId());
         values.put(KEY_DISPLAY_NAME, entry.getDisplayName());
         values.put(KEY_USERNAME, entry.getUsername());
         values.put(KEY_PASSWORD, entry.getPassword());
