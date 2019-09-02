@@ -1,5 +1,8 @@
 package com.android.mypassword;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +45,22 @@ public class passwordList extends AppCompatActivity implements AdapterView.OnIte
         lvPasswordList.setOnItemClickListener(this);
         lvPasswordList.setAdapter(listAdapter);
 
+        lvPasswordList.setLongClickable( true );
+        lvPasswordList.setOnItemLongClickListener( new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                PasswordEntry entry = passwordEntryList.get( position );
+
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("password", entry.getPassword() );
+                clipboard.setPrimaryClip( clip );
+
+                showToast("copy password .. ");
+                return true;
+            }
+        });
+
         updateList();
     }
 
@@ -53,11 +73,8 @@ public class passwordList extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        /*PasswordEntry entry = (PasswordEntry) parent.getItemAtPosition( position );*/
-        PasswordEntry entry = passwordEntryList.get( position );
-        dbHandler.removeEntry(entry);
 
-        updateList();
+        PasswordEntry entry = passwordEntryList.get( position );
     }
 
     void updateList() {
@@ -81,5 +98,9 @@ public class passwordList extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    public void showToast(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         EditText pwEditText = findViewById(R.id.pwEditText);
         String pwString = pwEditText.getText().toString();
 
+        // refactor database handling: http://instinctcoder.com/android-studio-sqlite-database-multiple-tables-example/
+        // -> need more tables to set user password in database
         if( pwString.equals("a"))
         {
             Intent i = new Intent( this, passwordList.class);
